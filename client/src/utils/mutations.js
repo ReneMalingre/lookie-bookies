@@ -23,7 +23,7 @@ export const ADD_USER = gql`
     }
   }
 `
-
+// use a bookInput type to gather the data for the book that's being saved
 export const SAVE_BOOK = gql`
   mutation saveBook($bookData: bookInput!) {
     saveBook(bookData: $bookData) {
