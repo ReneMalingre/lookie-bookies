@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { Form, Button, Alert } from "react-bootstrap"
 
 import Auth from "../utils/auth"
-
+import { saveBookIds } from "../utils/localStorage"
 import { useMutation } from "@apollo/client"
 import { LOGIN_USER } from "../utils/mutations"
 
@@ -38,7 +38,9 @@ const LoginForm = () => {
       const { data } = await loginUser({
         variables: { ...userFormData },
       })
-      console.log(data)
+      // save the user's selected books to localStorage
+      const bookIds = data.login.user.savedBooks.map((book) => book.bookId)
+      saveBookIds(bookIds)
 
       Auth.login(data.login.token)
     } catch (err) {
